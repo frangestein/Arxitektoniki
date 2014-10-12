@@ -105,8 +105,10 @@ int main(){
 			}//telos for///// sosto---------------------------------
 
 			
-				// exo provlima edo chek it later!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				if (n == 1)
+				// metafora metavliton ston pinaka temporary gia na gnorizo ti vlepo
+				// metrisi ton branches
+				// kathos elexos ton timon me ton temp gia ton elexo gia na stamatisi to while
+				if (n == 1 && first == 1)
 				{
                           for(i = 0; i < 8; i++)
 			              {
@@ -117,7 +119,7 @@ int main(){
                            }
                            if (right1 != 8)
                            {
-                                      for(i=0;i<8;i++)
+                                      for(i=0;i<9;i++)
                                       {
                                                       pinakas_temp[1][i] = pinakas[j][i];
                                       }
@@ -144,68 +146,57 @@ int main(){
                              
                              if((right1 != 8) && (right2 != 8))
                              {
-                                       for(i = 0;i < 8;i++)
+                                       for(i = 0;i < 9;i++)
                                        {
                                               pinakas_temp[2][i] = pinakas[j][i];
                                        }
                                        n++;
-                                      // sum_branches++;
+                                       sum_branches++;
                                                        
                              }                              
                      }
                  }
-				right1 = 0;
-				right2 = 0;
+
 		
 				// edo vriskome sto while (n!=3)
-				/*
-			for(i=0;i<8;i++)
-			{
-            printf("%c",pinakas[j][i]);
-			}
-			printf("\n");*/
-			first = 1;
-			j++;
+				right1 = 0;
+				right2 = 0;
+				first = 1;
+				j++;
 		}//telos while(n!=3
-		
+		// edo p pinakas mou ine teliomenos me 2 sira apo 2 diaforerikes diefthinsis kai sto telos me mia  3i
 
-		/*for(k = 0;k < 50; k++)
+
+        // elexos gia to an oi pinakes gemisan ok.
+	
+		for(k = 0;k < 3; k++)
 		{
               for(i = 0;i < 9; i++)
               {
-				  printf("%c",pinakas[k][i]);
+				  fprintf(outputtest,"%c" ,pinakas_temp[k][i]);
 			  }
-		}*/
-
-
-	/*	for(k = 0;k < 3; k++)
-		{
-              for(i = 0;i < 9; i++)
-              {
-				  fputc(pinakas_temp[k][i],outputtest);
-			  }
-			  fputc('\n',outputtest);
 		}
 
-		fputc('\n',outputtest);
+		fprintf(outputtest,"\n");
+		fprintf(outputtest,"\n");
+		fprintf(outputtest,"\n");
+		fprintf(outputtest,"\n");
+
 
 		for(k = 0;k < 50; k++)
 		{
               for(i = 0;i < 9; i++)
               {
-				  fputc(pinakas[k][i],outputtest);
+				  fprintf(outputtest,"%c",pinakas[k][i]);
 			  }
-			  fputc('\n',outputtest);
-		}*/
+		}
 
+		fprintf(outputtest,"\n");
 
-
-
-		// arxikopiisi timon
 		
 		//predictors place calling
 		
-		for(k = 0;k < j; k++)
+		for(k = 0;k < j-1; k++)
 		{
               for(i = 0;i < 8; i++)
               {
@@ -226,31 +217,40 @@ int main(){
               
               if(same == 1 && counter01 == 1)
               {
-                      prediction1_1bit = predictor1bit( prediction1_1bit, same);
+					 printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
+                      prediction1_1bit= predictor1bit( prediction1_1bit, same);
                       prediction1_2bit = predictor2bit( prediction1_2bit, same);
+					  counter01=1;
               }
               else
               {
                       if( same == 1 && counter01 == 2)
                       {
+						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
+						  printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
                           prediction2_1bit = predictor1bit( prediction2_1bit, same);
                           prediction2_2bit = predictor2bit( prediction2_2bit, same);
+						  counter01=2;
                       }
                       else
                       {
-                          if( same == 0 && counter01 == 1)
+                          if( same == 0 && counter01 == 1 )
                           {
+							  //printf("prediction1_1bit counter == 1 going 2 %c\n",prediction1_1bit);
+							  printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
                               prediction1_1bit = predictor1bit( prediction1_1bit, same);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
-                              counter01++;
+                              counter01 = 2;
                           }
                           else
                           {
-                              if( same == 0 && counter01 == 2)
+                              if( same == 0 && counter01 == 2 )
                               {
+								  //printf("prediction2_1bit counter == 2 is going 1 %c\n",prediction2_1bit);
+						          printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
                                   prediction2_1bit = predictor1bit( prediction2_1bit, same);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
-                                  counter01--;
+                                  counter01 = 1;
                               }
                           }
 					  }
@@ -262,14 +262,18 @@ int main(){
         
         
         // anathesi tis tritis diefthinsis p den eleksa stin proti thesi tou kenourgiou m pinaka
+		// kai i anathesi tis tritis diefthinsis gia 1 ston pinaka pinaka_temp
         for(i = 0;i < 9; i++)
         {
               pinakas[0][i] = pinakas_temp[2][i];
+			  pinakas_temp[0][i] = pinakas_temp[2][i];
         }
+
+
         //arxikopiisi timon gia ton kenourgio pinaka
         n = 1;
         counter01 = 1;
-        j = 0;
+        j = 1;
         
        	 prediction1_1bit='T';
          prediction2_1bit='T';
@@ -277,7 +281,8 @@ int main(){
          prediction2_2bit='T';
         
 	    }
-	sum_branches= sum_branches - 1; //giati perno mia perisotreri timi p ine to EOF
+
+	sum_branches= sum_branches + 1; //giati den to perni stin proti timi p perno stin arxi
 	fprintf(output1bit,"hit: %f\n",sum_of_hits_1bit);
 	fprintf(output1bit,"klisis: %f\n",sum_of_klisis_1b1t);
 	success_1bit = sum_of_hits_1bit / sum_of_klisis_1b1t;
@@ -286,6 +291,13 @@ int main(){
 	fprintf(output1bit,"Success rate:%f\n",success_1bit);
 	fprintf(output1bit,"This is the number of branches %d",sum_branches);
 
+	fprintf(output2bit,"hit: %f\n",sum_of_hits_2bit);
+	fprintf(output2bit,"klisis: %f\n",sum_of_klisis_2bit);
+	success_2bit = sum_of_hits_2bit / sum_of_klisis_2bit;
+	fprintf(output2bit,"Success rate:%f\n",success_2bit);
+	success_2bit = success_2bit * 100;
+	fprintf(output2bit,"Success rate:%f\n",success_2bit);
+    fprintf(output2bit,"This is the number of branches %d",sum_branches);
 	
 	fclose(input);
 	fclose(output1bit);
@@ -303,7 +315,7 @@ char predictor2bit(char pred,int s)
 {
 	
      char nextpred;
-	sum_of_klisis_2bit++;
+     sum_of_klisis_2bit++;
 
      if (pred == 'T' && s == 1 )
 	{
@@ -311,41 +323,67 @@ char predictor2bit(char pred,int s)
 		sum_of_hits_2bit++;
         nextpred = 'T';
     }
-    else if (pred == 'T' && s == 0){
+    else
+    {
+        if (pred == 'T' && s == 0)
+         {
          fprintf(output2bit,"Miss\n");
          nextpred = 't';
          }
-         else if (pred == 'F' && s == 0){
+         else
+         {
+              if (pred == 'F' && s == 0)
+              {
               fprintf(output2bit,"Hit\n");
 			  sum_of_hits_2bit++;
               nextpred = 'F';
               }
-              else if (pred == 'F' && s == 1){
+              else
+              {
+                   if (pred == 'F' && s == 1)
+                   {
                    fprintf(output2bit,"Miss\n");
                    nextpred = 'f';
                    }
-                   else if (pred == 't' && s == 1){
+                   else
+                   {
+                       
+                        if (pred == 't' && s == 1)
+                        {
                         fprintf(output2bit,"Hit\n");
-						sum_of_hits_2bit++;
+			            sum_of_hits_2bit++;
                         nextpred = 'T';
                         }
                         else
-						{
-							if (pred == 't' && s == 0)
-							{
+                        {
+                      		 if (pred == 't' && s == 0)
+						 	 {
                              fprintf(output2bit,"Miss\n");
                              nextpred = 'F';
                              }
-                             else if (pred == 'f' && s == 1){
+                             else
+                             {
+                                  if (pred == 'f' && s == 1)
+                                  {
                                   fprintf(output2bit,"Miss\n");
                                   nextpred = 'T';
                                   }
-                                  else if (pred == 'f' && s == 0){
+                                  else
+                                  {
+                                       if (pred == 'f' && s == 0)
+									   {
                                        fprintf(output2bit,"Hit\n");
 									   sum_of_hits_2bit++;
                                        nextpred = 'F';
                                        }
-						}
+                                  }
+                              }
+                         }
+                    }
+               }
+          }
+	 }
+    
 
 	return (nextpred);
           
