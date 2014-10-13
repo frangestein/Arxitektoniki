@@ -34,6 +34,8 @@ int main(){
 	int same = 0;
 	int counter01 = 1;
 	int sum_branches = 0;
+	int pred1 = 0;
+	int pred2 = 0;
 
 	float success_1bit;
 	float success_2bit;
@@ -220,6 +222,7 @@ int main(){
 					 printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
                       prediction1_1bit= predictor1bit( prediction1_1bit, same);
                       prediction1_2bit = predictor2bit( prediction1_2bit, same);
+					  pred1++;
 					  counter01=1;
               }
               else
@@ -230,6 +233,7 @@ int main(){
 						  printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
                           prediction2_1bit = predictor1bit( prediction2_1bit, same);
                           prediction2_2bit = predictor2bit( prediction2_2bit, same);
+						  pred2++;
 						  counter01=2;
                       }
                       else
@@ -240,6 +244,7 @@ int main(){
 							  printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
                               prediction1_1bit = predictor1bit( prediction1_1bit, same);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
+							  pred1++;
                               counter01 = 2;
                           }
                           else
@@ -250,6 +255,7 @@ int main(){
 						          printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
                                   prediction2_1bit = predictor1bit( prediction2_1bit, same);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
+								  pred2++;
                                   counter01 = 1;
                               }
                           }
@@ -260,7 +266,42 @@ int main(){
               
         }//predictor calling ending */
         
-        
+		fprintf(output1bit,"I diefthinsi");
+
+        for(i = 0;i < 8; i++)
+        {
+		fprintf(output1bit," %c ",pinakas_temp[0][i]);
+		}
+		fprintf(output1bit,"epanaliftike %d\n",pred1);
+
+	    fprintf(output1bit,"I diefthinsi");
+
+        for(i = 0;i < 8; i++)
+        {
+		fprintf(output1bit," %c ",pinakas_temp[1][i]);
+		}
+		fprintf(output1bit,"epanaliftike %d\n",pred2);
+
+
+		fprintf(output2bit,"I diefthinsi");
+
+        for(i = 0;i < 8; i++)
+        {
+		fprintf(output2bit," %c ",pinakas_temp[0][i]);
+		}
+		fprintf(output2bit,"epanaliftike %d\n",pred1);
+
+	    fprintf(output2bit,"I diefthinsi");
+
+        for(i = 0;i < 8; i++)
+        {
+		fprintf(output2bit," %c ",pinakas_temp[1][i]);
+		}
+		fprintf(output2bit,"epanaliftike %d\n",pred2);
+
+
+	 pred1 = 0;
+	 pred2 = 0;
         // anathesi tis tritis diefthinsis p den eleksa stin proti thesi tou kenourgiou m pinaka
 		// kai i anathesi tis tritis diefthinsis gia 1 ston pinaka pinaka_temp
         for(i = 0;i < 9; i++)

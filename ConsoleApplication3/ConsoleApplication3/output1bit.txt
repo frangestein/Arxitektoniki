@@ -8,29 +8,37 @@ Hit
 Miss
 Miss
 Hit
+I diefthinsi 0  0  4  E  F  F  A  C epanaliftike 4
+I diefthinsi 0  0  4  E  F  F  B  0 epanaliftike 6
+Hit
+Miss
+Hit
+Miss
+I diefthinsi 0  0  4  E  F  F  D  8 epanaliftike 2
+I diefthinsi 0  0  4  E  F  F  E  4 epanaliftike 2
+Hit
+Hit
+Miss
+Miss
+I diefthinsi 0  0  4  E  F  F  F  0 epanaliftike 3
+I diefthinsi 0  0  4  F  0  0  0  0 epanaliftike 1
+Hit
+Hit
+Miss
+Miss
+Miss
 Hit
 Miss
 Hit
 Miss
 Hit
-Hit
-Miss
-Miss
-Hit
-Hit
-Miss
-Miss
 Miss
 Hit
 Miss
 Hit
 Miss
-Hit
-Miss
-Hit
-Miss
-Hit
-Miss
+I diefthinsi 0  0  4  F  0  0  0  8 epanaliftike 12
+I diefthinsi 0  0  4  F  0  0  0  0 epanaliftike 3
 hit: 15.000000
 klisis: 33.000000
 Success rate:0.454545
