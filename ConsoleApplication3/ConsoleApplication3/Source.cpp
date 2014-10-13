@@ -46,7 +46,7 @@ int main(){
 	char prediction1_2bit='T';
 	char prediction2_2bit='T';
 	
-	char pinakas[50][9];
+	char pinakas[500][9];
 	char pinakas_temp[3][9];
 	
 	//anigma arxion
@@ -170,7 +170,7 @@ int main(){
 
 
         // elexos gia to an oi pinakes gemisan ok.
-	
+	/*// gia debug tou kodika--------------------
 		for(k = 0;k < 3; k++)
 		{
               for(i = 0;i < 9; i++)
@@ -185,6 +185,8 @@ int main(){
 		fprintf(outputtest,"\n");
 
 
+		
+		
 		for(k = 0;k < 50; k++)
 		{
               for(i = 0;i < 9; i++)
@@ -193,7 +195,7 @@ int main(){
 			  }
 		}
 
-		fprintf(outputtest,"\n");
+		fprintf(outputtest,"\n");------------------------*/
 
 		
 		//predictors place calling
@@ -219,7 +221,7 @@ int main(){
               
               if(same == 1 && counter01 == 1)
               {
-					 printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
+					 //printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
                       prediction1_1bit= predictor1bit( prediction1_1bit, same);
                       prediction1_2bit = predictor2bit( prediction1_2bit, same);
 					  pred1++;
@@ -230,7 +232,7 @@ int main(){
                       if( same == 1 && counter01 == 2)
                       {
 						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
-						  printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
+						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
                           prediction2_1bit = predictor1bit( prediction2_1bit, same);
                           prediction2_2bit = predictor2bit( prediction2_2bit, same);
 						  pred2++;
@@ -241,7 +243,7 @@ int main(){
                           if( same == 0 && counter01 == 1 )
                           {
 							  //printf("prediction1_1bit counter == 1 going 2 %c\n",prediction1_1bit);
-							  printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
+							  //printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
                               prediction1_1bit = predictor1bit( prediction1_1bit, same);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
 							  pred1++;
@@ -252,7 +254,7 @@ int main(){
                               if( same == 0 && counter01 == 2 )
                               {
 								  //printf("prediction2_1bit counter == 2 is going 1 %c\n",prediction2_1bit);
-						          printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
+						          //printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
                                   prediction2_1bit = predictor1bit( prediction2_1bit, same);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
 								  pred2++;
