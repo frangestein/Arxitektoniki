@@ -1,4 +1,0 @@
-Success rate of 1bit pred:58.382217 
-This is the number of branches 1bit pred 1117692 
-Success rate of 1bit pred:61.377579
-This is the number of branches 2bit pred 1117692 
