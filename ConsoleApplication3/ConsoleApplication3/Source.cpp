@@ -4,21 +4,28 @@
 // dilosi predictors
 char predictor2bit(char pred,int s);
 char predictor1bit(char pred,int s);
-
+char predictor11bit(char pred,int s);
 
 	FILE *output1bit;     
     FILE *output2bit;
 	FILE *outputtest;
+	FILE *output11bit;
 
 	float sum_of_hits_1bit = 0;
 	float sum_of_hits_2bit = 0;
-	float sum_of_klisis_1b1t = 0;
+	float sum_of_hits_11bit = 0;
+	
+	int apantisiYesNo = 0;
+	
+	float sum_of_klisis_1bit = 0;
 	float sum_of_klisis_2bit = 0;
+	float sum_of_klisis_11bit = 0;
 
 int main(){
     // diktes se arxia
 	FILE *input;
-
+    FILE *outputsuccess;
+    
 
 
     // arxikopiisi kai dilosi metavliton
@@ -26,6 +33,8 @@ int main(){
 	int	n = 1;
 	int j = 0;
 	int i = 0;
+	int firstval = 0;
+	int secondval = 0;
 	int right1 =0;
 	int right2 = 0;
 	int counter = 0;
@@ -41,13 +50,17 @@ int main(){
 	float success_2bit;
 
 	char ch = 0;
+	char apantisi = 'Y';
 	char prediction1_1bit='T';
 	char prediction2_1bit='T';
 	char prediction1_2bit='T';
 	char prediction2_2bit='T';
+	//char prediction11_1
 	
 	char pinakas[500][9];
 	char pinakas_temp[3][9];
+	
+	
 	
 	//anigma arxion
 	input=fopen("input.txt","r");
@@ -57,10 +70,25 @@ int main(){
 		getchar();
         return 0;
     }
+    
+    printf("Do you want the outputs of the predictors??? Y/N");
+	scanf("%c", &apantisi);
+	
+    if(apantisi == 'Y')
+    {
 	output1bit=fopen("output1bit.txt","w");
 	output2bit=fopen("output2bit.txt","w");
+	output11bit=fopen("output11bit.txt","w");
 	outputtest=fopen("outputtest.txt","w");
 	
+	apantisiYesNo = 1;
+    }
+    else
+    {
+    apantisiYesNo = 0;
+    }
+    
+    outputsuccess=fopen("outputsucces.txt","w");
 	// while atelioto mexri na vro EOF
 	
 	while (whileout == 0)
@@ -267,7 +295,8 @@ int main(){
               
               
         }//predictor calling ending */
-        
+        if(apantisiYesNo == 1)
+        {
 		fprintf(output1bit,"I diefthinsi");
 
         for(i = 0;i < 8; i++)
@@ -300,7 +329,7 @@ int main(){
 		fprintf(output2bit," %c ",pinakas_temp[1][i]);
 		}
 		fprintf(output2bit,"epanaliftike %d\n",pred2);
-
+        }
 
 	 pred1 = 0;
 	 pred2 = 0;
@@ -326,29 +355,34 @@ int main(){
 	    }
 
 	sum_branches= sum_branches + 1; //giati den to perni stin proti timi p perno stin arxi
-	fprintf(output1bit,"hit: %f\n",sum_of_hits_1bit);
-	fprintf(output1bit,"klisis: %f\n",sum_of_klisis_1b1t);
-	success_1bit = sum_of_hits_1bit / sum_of_klisis_1b1t;
-	fprintf(output1bit,"Success rate:%f\n",success_1bit);
+	//fprintf(output1bit,"hit: %f\n",sum_of_hits_1bit);
+	//fprintf(output1bit,"klisis: %f\n",sum_of_klisis_1bit);
+	success_1bit = sum_of_hits_1bit / sum_of_klisis_1bit;
+	//fprintf(output1bit,"Success rate:%f\n",success_1bit);
 	success_1bit = success_1bit * 100;
-	fprintf(output1bit,"Success rate:%f\n",success_1bit);
-	fprintf(output1bit,"This is the number of branches %d",sum_branches);
+	fprintf(outputsuccess,"Success rate of 1bit pred:%f %\n",success_1bit);
+	fprintf(outputsuccess,"This is the number of branches 1bit pred %d \n",sum_branches);
 
-	fprintf(output2bit,"hit: %f\n",sum_of_hits_2bit);
-	fprintf(output2bit,"klisis: %f\n",sum_of_klisis_2bit);
+	//fprintf(output2bit,"hit: %f\n",sum_of_hits_2bit);
+	//fprintf(output2bit,"klisis: %f\n",sum_of_klisis_2bit);
 	success_2bit = sum_of_hits_2bit / sum_of_klisis_2bit;
-	fprintf(output2bit,"Success rate:%f\n",success_2bit);
+	//fprintf(output2bit,"Success rate:%f\n",success_2bit);
 	success_2bit = success_2bit * 100;
-	fprintf(output2bit,"Success rate:%f\n",success_2bit);
-    fprintf(output2bit,"This is the number of branches %d",sum_branches);
-	
+	fprintf(outputsuccess,"Success rate of 1bit pred:%f\n",success_2bit);
+    fprintf(outputsuccess,"This is the number of branches 2bit pred %d \n",sum_branches);
+    
 	fclose(input);
+	
+    if(apantisiYesNo == 1)
+	{
+	
 	fclose(output1bit);
 	fclose(output2bit);
+	fclose(outputsuccess);
 	fclose(outputtest);
-
+    }
 	getchar();
-
+    return(0);
 	
 }
 
@@ -370,14 +404,14 @@ char predictor2bit(char pred,int s)
     {
         if (pred == 'T' && s == 0)
          {
-         fprintf(output2bit,"Miss\n");
+         if(apantisiYesNo == 1){fprintf(output2bit,"Miss\n");}
          nextpred = 't';
          }
          else
          {
               if (pred == 'F' && s == 0)
               {
-              fprintf(output2bit,"Hit\n");
+              if(apantisiYesNo == 1){fprintf(output2bit,"Hit\n");}
 			  sum_of_hits_2bit++;
               nextpred = 'F';
               }
@@ -385,7 +419,7 @@ char predictor2bit(char pred,int s)
               {
                    if (pred == 'F' && s == 1)
                    {
-                   fprintf(output2bit,"Miss\n");
+                   if(apantisiYesNo == 1){fprintf(output2bit,"Miss\n");}
                    nextpred = 'f';
                    }
                    else
@@ -393,7 +427,7 @@ char predictor2bit(char pred,int s)
                        
                         if (pred == 't' && s == 1)
                         {
-                        fprintf(output2bit,"Hit\n");
+                        if(apantisiYesNo == 1){fprintf(output2bit,"Hit\n");}
 			            sum_of_hits_2bit++;
                         nextpred = 'T';
                         }
@@ -401,21 +435,21 @@ char predictor2bit(char pred,int s)
                         {
                       		 if (pred == 't' && s == 0)
 						 	 {
-                             fprintf(output2bit,"Miss\n");
+                             if(apantisiYesNo == 1){fprintf(output2bit,"Miss\n");}
                              nextpred = 'F';
                              }
                              else
                              {
                                   if (pred == 'f' && s == 1)
                                   {
-                                  fprintf(output2bit,"Miss\n");
+                                  if(apantisiYesNo == 1){fprintf(output2bit,"Miss\n");}
                                   nextpred = 'T';
                                   }
                                   else
                                   {
                                        if (pred == 'f' && s == 0)
 									   {
-                                       fprintf(output2bit,"Hit\n");
+                                       if(apantisiYesNo == 1){fprintf(output2bit,"Hit\n");}
 									   sum_of_hits_2bit++;
                                        nextpred = 'F';
                                        }
@@ -438,24 +472,51 @@ char predictor1bit(char pred,int s)
 {
 	
 	char nextpred;
-    sum_of_klisis_1b1t++;
+    sum_of_klisis_1bit++;
     if(pred == 'T' && s == 1 ){
-            fprintf(output1bit,"Hit\n");
+            if(apantisiYesNo == 1){fprintf(output1bit,"Hit\n");}
+			sum_of_hits_1bit++;
+            nextpred = 'T';
+    }
+    else if (pred == 'T' && s == 0){
+         if(apantisiYesNo == 1){fprintf(output1bit,"Miss\n");}
+         nextpred = 'F';
+         
+         }
+         else if (pred == 'F' && s == 0){
+              if(apantisiYesNo == 1){fprintf(output1bit,"Hit\n");}
+			  sum_of_hits_1bit++;
+              nextpred = 'F';
+              }
+              else if (pred == 'F' && s == 1){
+                   if(apantisiYesNo == 1){fprintf(output1bit,"Miss\n");}
+                   nextpred = 'T';
+                   }
+	return (nextpred);
+}
+/*
+char predictor11bit(char pred,int s)
+{
+    char nextpred;
+    sum_of_klisis_11bit++;
+    
+    if(pred == 'T' && s == 1 ){
+            fprintf(output11bit,"Hit\n");
 			sum_of_hits_1bit++;
             nextpred = 'T';
     }
     else if (pred == 'T' && s == 0){
          fprintf(output1bit,"Miss\n");
          nextpred = 'F';
+         
          }
          else if (pred == 'F' && s == 0){
-              fprintf(output1bit,"Hit\n");
-			  sum_of_hits_1bit++;
+              fprintf(output11bit,"Hit\n");
+			  sum_of_hits_11bit++;
               nextpred = 'F';
               }
               else if (pred == 'F' && s == 1){
-                   fprintf(output1bit,"Miss\n");
+                   fprintf(output11bit,"Miss\n");
                    nextpred = 'T';
                    }
-	return (nextpred);
-}
+}*/
