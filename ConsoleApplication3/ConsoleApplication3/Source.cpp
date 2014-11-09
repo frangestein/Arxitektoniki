@@ -45,9 +45,14 @@ int main(){
 	int sum_branches = 0;
 	int pred1 = 0;
 	int pred2 = 0;
+    int inerloop = 0;
+    int counterax = 0;
+    int counteraz =0;
+    int same1 = 1;
 
 	float success_1bit;
 	float success_2bit;
+	float success_11bit;
 
 	char ch = 0;
 	char apantisi = 'Y';
@@ -55,7 +60,13 @@ int main(){
 	char prediction2_1bit='T';
 	char prediction1_2bit='T';
 	char prediction2_2bit='T';
-	//char prediction11_1
+	
+	
+	char predictionT_1_11bit='T';//new
+	char predictionNT_1_11bit='T';//new
+	
+	char predictionT_2_11bit='T';//new
+	char predictionNT_2_11bit='T';//new
 	
 	char pinakas[500][9];
 	char pinakas_temp[3][9];
@@ -193,76 +204,86 @@ int main(){
 				right2 = 0;
 				first = 1;
 				j++;
-		}//telos while(n!=3
+		}//telos while(n!=3) sostos...
 		// edo p pinakas mou ine teliomenos me 2 sira apo 2 diaforerikes diefthinsis kai sto telos me mia  3i
 
-
-        // elexos gia to an oi pinakes gemisan ok.
-	/*// gia debug tou kodika--------------------
-		for(k = 0;k < 3; k++)
-		{
-              for(i = 0;i < 9; i++)
-              {
-				  fprintf(outputtest,"%c" ,pinakas_temp[k][i]);
-			  }
-		}
-
-		fprintf(outputtest,"\n");
-		fprintf(outputtest,"\n");
-		fprintf(outputtest,"\n");
-		fprintf(outputtest,"\n");
-
-
-		
-		
-		for(k = 0;k < 50; k++)
-		{
-              for(i = 0;i < 9; i++)
-              {
-				  fprintf(outputtest,"%c",pinakas[k][i]);
-			  }
-		}
-
-		fprintf(outputtest,"\n");------------------------*/
-
-		
-		//predictors place calling
-		
-		for(k = 0;k < j-1; k++)
-		{
+		///// POU DAME ALASO PRAMATA 
+		counter = 0;
               for(i = 0;i < 8; i++)
               {
-                    if(pinakas[k][i] == pinakas[k+1][i])
+                    if(pinakas[0][i] == pinakas[1][i])
                     {
                                      counter++;
                     }
               }
-              
+
               if(counter == 8)
               {
-                         same = 1;
+                   inerloop=0;    
               }
               else
               {
-                         same = 0;
+                   inerloop=1;  
               }
               
-              if(same == 1 && counter01 == 1)
+              counter =0;
+                            
+              if(inerloop == 1)
               {
+              //action1   
+              for(k = 0;k < j-1; k++)
+              {
+               for(i = 0;i < 8; i++)
+               {
+                    if(pinakas[k][i] == pinakas[k+1][i])
+                    {
+                                     counter++;
+                    }
+               }
+              
+               if(counter == 8)
+               {
+                         same = 1;
+               }
+               else
+               {
+                         same = 0;
+               }
+              
+              counter = 0;
+              
+               if(same == 1 && counter01 == 1)
+               {
 					 //printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
                       prediction1_1bit= predictor1bit( prediction1_1bit, same);
                       prediction1_2bit = predictor2bit( prediction1_2bit, same);
+                      if(same1 == 1)
+                      {
+                               predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                      } 
+                      else
+                      {
+                               predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                      }
 					  pred1++;
 					  counter01=1;
-              }
-              else
-              {
+               }
+               else
+               {
                       if( same == 1 && counter01 == 2)
                       {
 						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
 						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
                           prediction2_1bit = predictor1bit( prediction2_1bit, same);
                           prediction2_2bit = predictor2bit( prediction2_2bit, same);
+                      if(same1 == 1)
+                      {
+                               predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same);
+                      } 
+                      else
+                      {
+                               predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same);
+                      }
 						  pred2++;
 						  counter01=2;
                       }
@@ -274,6 +295,14 @@ int main(){
 							  //printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
                               prediction1_1bit = predictor1bit( prediction1_1bit, same);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
+                              if(same1 == 1)
+                              {
+                                       predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                              } 
+                              else
+                              {
+                                       predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                              }
 							  pred1++;
                               counter01 = 2;
                           }
@@ -285,7 +314,109 @@ int main(){
 						          //printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
                                   prediction2_1bit = predictor1bit( prediction2_1bit, same);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
-								  pred2++;
+                                  if(same1 == 1)
+                                  {
+                                           predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                                  } 
+                                  else
+                                  {
+                                           predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                                  }
+                                  pred2++;
+                                  counter01 = 1;
+                              }
+                          }
+					  }
+              }
+              counter = 0;
+              same1 = same;
+              
+              }//predictor calling ending */           
+                          
+              }
+              else
+              {
+              //action0    
+                           for(k = 0;k < j-1; k++)
+                           {
+                                for(i = 0;i < 8; i++)
+                                   {
+                                      if(pinakas[k][i] == pinakas[0][i])
+                                      {
+                                       counteraz++;
+                                       }
+                                   }
+                                   
+                                   if(counteraz == 8)
+                                   {
+                                                counterax++;
+                                   }
+                                   counteraz = 0;                  
+                                                                     
+                           }
+            counter =0;               
+              for(k = 0;k < counterax; k++)
+              {
+               for(i = 0;i < 8; i++)
+               {
+                    if(pinakas[k][i] == pinakas[k+1][i])
+                    {
+                                     counter++;
+                    }
+               }
+              
+               if(counter == 8)
+               {
+                         same = 1;
+               }
+               else
+               {
+                         same = 0;
+               }
+              
+               if(same == 1 && counter01 == 1)
+               {
+					 //printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
+                      prediction1_1bit= predictor1bit( prediction1_1bit, same);
+                      prediction1_2bit = predictor2bit( prediction1_2bit, same);
+                      predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+					  pred1++;
+					  counter01=1;
+               }
+               else
+               {
+                      if( same == 1 && counter01 == 2)
+                      {
+						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
+						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
+                          prediction2_1bit = predictor1bit( prediction2_1bit, same);
+                          prediction2_2bit = predictor2bit( prediction2_2bit, same);
+                          predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same);
+						  pred2++;
+						  counter01=2;
+                      }
+                      else
+                      {
+                          if( same == 0 && counter01 == 1 )
+                          {
+							  //printf("prediction1_1bit counter == 1 going 2 %c\n",prediction1_1bit);
+							  //printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
+                              prediction1_1bit = predictor1bit( prediction1_1bit, same);
+                              prediction1_2bit = predictor2bit( prediction1_2bit, same);
+                              predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+							  pred1++;
+                              counter01 = 2;
+                          }
+                          else
+                          {
+                              if( same == 0 && counter01 == 2 )
+                              {
+								  //printf("prediction2_1bit counter == 2 is going 1 %c\n",prediction2_1bit);
+						          //printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
+                                  prediction2_1bit = predictor1bit( prediction2_1bit, same);
+                                  prediction2_2bit = predictor2bit( prediction2_2bit, same);
+                                  predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                                  pred2++;
                                   counter01 = 1;
                               }
                           }
@@ -293,65 +424,199 @@ int main(){
               }
               counter = 0;
               
+              }//predictor calling ending */   
+                          
+                          
+              }
               
-        }//predictor calling ending */
+
+              
+		//-----------------------------------------------------------------------------------------------------------------------
+		
+		
+		
         if(apantisiYesNo == 1)
         {
-		fprintf(output1bit,"I diefthinsi");
+                         
+		fprintf(output1bit," I diefthinsi");
 
         for(i = 0;i < 8; i++)
         {
 		fprintf(output1bit," %c ",pinakas_temp[0][i]);
 		}
-		fprintf(output1bit,"epanaliftike %d\n",pred1);
+		fprintf(output1bit," epanaliftike %d\n",pred1);
 
-	    fprintf(output1bit,"I diefthinsi");
+	    fprintf(output1bit," I diefthinsi");
 
         for(i = 0;i < 8; i++)
         {
 		fprintf(output1bit," %c ",pinakas_temp[1][i]);
 		}
-		fprintf(output1bit,"epanaliftike %d\n",pred2);
+		fprintf(output1bit," epanaliftike %d\n",pred2);
 
 
-		fprintf(output2bit,"I diefthinsi");
+		fprintf(output2bit," I diefthinsi");
 
         for(i = 0;i < 8; i++)
         {
 		fprintf(output2bit," %c ",pinakas_temp[0][i]);
 		}
-		fprintf(output2bit,"epanaliftike %d\n",pred1);
+		fprintf(output2bit," epanaliftike %d\n",pred1);
 
-	    fprintf(output2bit,"I diefthinsi");
+	    fprintf(output2bit," I diefthinsi");
 
         for(i = 0;i < 8; i++)
         {
 		fprintf(output2bit," %c ",pinakas_temp[1][i]);
 		}
-		fprintf(output2bit,"epanaliftike %d\n",pred2);
+		fprintf(output2bit," epanaliftike %d\n",pred2);
+		
+		if(inerloop == 1)
+		{                     
+                    for(i = 0;i < 8; i++)
+                    {
+		             fprintf(output11bit,"%c",pinakas_temp[0][i]);
+                    }
+                    fprintf(output11bit," epanaliftike %d\n",pred1);
+                    
+                    for(i = 0;i < 8; i++)
+                    {
+		             fprintf(output11bit,"%c",pinakas_temp[1][i]);
+                    }
+                    fprintf(output11bit," epanaliftike %d\n",pred2);
+                    
+   
+                    
+                    for(i = 0;i < 8; i++)
+                    {
+		             fprintf(output11bit,"%c",pinakas_temp[0][i]);
+                    }
+                    fprintf(output11bit," last prediction (T) %c", predictionT_1_11bit);     
+                    fprintf(output11bit," last prediction (NT) %c\n", predictionNT_1_11bit);     
+                    
+                    for(i = 0;i < 8; i++)
+                    {
+		             fprintf(output11bit,"%c",pinakas_temp[1][i]);
+                    }
+                    fprintf(output11bit," last prediction (T) %c", predictionT_2_11bit);     
+                    fprintf(output11bit," last prediction (NT) %c\n", predictionNT_2_11bit);  
+                    
+                                             
         }
-
+		
+		
+        }
+        
+        
+     same1 = 1;
 	 pred1 = 0;
 	 pred2 = 0;
         // anathesi tis tritis diefthinsis p den eleksa stin proti thesi tou kenourgiou m pinaka
 		// kai i anathesi tis tritis diefthinsis gia 1 ston pinaka pinaka_temp
-        for(i = 0;i < 9; i++)
+		
+		//  RE PALAVE DAME LIPI ENA IF JUST TO REMBER ....VALE JE TO N MESA -- done
+		counteraz=0;
+		counterax=0;
+                           for(k = 0;k < j-1; k++)
+                           {
+                                for(i = 0;i < 8; i++)
+                                   {
+                                      if(pinakas[k][i] == pinakas_temp[1][i])
+                                      {
+                                       counteraz++;
+                                       }
+                                   }
+                                   
+                                   if(counteraz == 8)
+                                   {
+                                         secondval++;
+                                   }
+                                   counteraz = 0;                  
+                                                                     
+                           }
+      /*  for(k = 0;k < j; k++)
         {
-              pinakas[0][i] = pinakas_temp[2][i];
-			  pinakas_temp[0][i] = pinakas_temp[2][i];
+        for(i = 0;i < 8; i++)
+        {
+             		fprintf(outputtest," %c ",pinakas[k][i]); 
         }
 
+        fprintf(outputtest,"\n");
+        
+        }                           
+                   fprintf(outputtest,"------------------------------------------\n");     */           
+                           
+                           
+		if(inerloop == 1)
+		{
+           for(i = 0;i < 9; i++)
+           {
+              pinakas[0][i] = pinakas_temp[2][i];
+			  pinakas_temp[0][i] = pinakas_temp[2][i];
+			  
+           }		
 
+        
         //arxikopiisi timon gia ton kenourgio pinaka
         n = 1;
         counter01 = 1;
         j = 1;
+        }
+        else
+        {
+            //----------------------------
+         for(k = 0; k < secondval; k++)
+         {
+               for(i = 0;i < 9; i++)
+               {
+			         pinakas[k][i] = pinakas_temp[1][i];
+			  
+               }               
+         }
+         
+      //----------      
+         for(i = 0;i < 9; i++)
+         {
+			  pinakas_temp[0][i] = pinakas_temp[1][i];
+			  
+           }
+//-----------------------
+           for(i = 0;i < 9; i++)
+           {
+              pinakas[secondval][i] = pinakas_temp[2][i];
+			  pinakas_temp[1][i] = pinakas_temp[2][i];
+			  
+           }
+           //------------------------
+        n = 2;
+        counter01 = 1;
+        j = secondval+1;
+         
+        }
         
+       /* for(k = 0;k < j; k++)
+        {
+        for(i = 0;i < 8; i++)
+        {
+             		fprintf(outputtest," %c ",pinakas[k][i]); 
+        }
+
+        fprintf(outputtest,"\n");
+        
+        }
+                fprintf(outputtest,"------------------------------------------\n");*/
+         counteraz=0;
+         counterax=0;
+         secondval=0;
        	 prediction1_1bit='T';
          prediction2_1bit='T';
          prediction1_2bit='T';
          prediction2_2bit='T';
-        
+       	 predictionT_1_11bit='T';//new
+	     predictionNT_1_11bit='T';//new
+	     predictionT_2_11bit='T';//new
+	     predictionNT_2_11bit='T';//new
+         inerloop = 1;
 	    }
 
 	sum_branches= sum_branches + 1; //giati den to perni stin proti timi p perno stin arxi
@@ -368,19 +633,28 @@ int main(){
 	success_2bit = sum_of_hits_2bit / sum_of_klisis_2bit;
 	//fprintf(output2bit,"Success rate:%f\n",success_2bit);
 	success_2bit = success_2bit * 100;
-	fprintf(outputsuccess,"Success rate of 1bit pred:%f\n",success_2bit);
+	fprintf(outputsuccess,"Success rate of 2bit pred:%f\n",success_2bit);
     fprintf(outputsuccess,"This is the number of branches 2bit pred %d \n",sum_branches);
     
+   	success_11bit = sum_of_hits_11bit / sum_of_klisis_11bit;
+	success_11bit = success_11bit * 100;
+	fprintf(outputsuccess,"Success rate of (1,1)bit pred:%f\n",success_11bit);
+    fprintf(outputsuccess,"This is the number of branches (1,1) bit pred %d \n",sum_branches);
+    
 	fclose(input);
+	fclose(outputsuccess);
 	
     if(apantisiYesNo == 1)
 	{
 	
 	fclose(output1bit);
 	fclose(output2bit);
-	fclose(outputsuccess);
+	//fclose(outputsuccess);
 	fclose(outputtest);
     }
+    
+    
+    
 	getchar();
     return(0);
 	
@@ -494,29 +768,30 @@ char predictor1bit(char pred,int s)
                    }
 	return (nextpred);
 }
-/*
+
 char predictor11bit(char pred,int s)
 {
     char nextpred;
     sum_of_klisis_11bit++;
     
     if(pred == 'T' && s == 1 ){
-            fprintf(output11bit,"Hit\n");
-			sum_of_hits_1bit++;
+            if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
+			sum_of_hits_11bit++;
             nextpred = 'T';
     }
     else if (pred == 'T' && s == 0){
-         fprintf(output1bit,"Miss\n");
+         if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
          nextpred = 'F';
          
          }
          else if (pred == 'F' && s == 0){
-              fprintf(output11bit,"Hit\n");
+              if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
 			  sum_of_hits_11bit++;
               nextpred = 'F';
               }
               else if (pred == 'F' && s == 1){
-                   fprintf(output11bit,"Miss\n");
+                   if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
                    nextpred = 'T';
                    }
-}*/
+     return(nextpred);
+}
