@@ -1,0 +1,34 @@
+Hit
+Hit
+Hit
+Miss
+Hit
+Hit
+Hit
+Miss
+Hit
+Hit
+Hit
+Miss
+Miss
+Hit
+Hit
+Hit
+Hit
+Miss
+Hit
+Hit
+Hit
+Hit
+Hit
+Hit
+Hit
+Hit
+Hit
+Hit
+00400064 epanaliftike 4
+00400068 epanaliftike 12
+00400064 last prediction (T) F last prediction (NT) F
+00400068 last prediction (T) T last prediction (NT) T
+Hit
+Hit

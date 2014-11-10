@@ -775,22 +775,22 @@ char predictor11bit(char pred,int s)
     sum_of_klisis_11bit++;
     
     if(pred == 'T' && s == 1 ){
-            if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
+           // if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
 			sum_of_hits_11bit++;
             nextpred = 'T';
     }
     else if (pred == 'T' && s == 0){
-         if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
+         //if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
          nextpred = 'F';
          
          }
          else if (pred == 'F' && s == 0){
-              if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
+             // if(apantisiYesNo == 1){fprintf(output11bit,"Hit\n");}
 			  sum_of_hits_11bit++;
               nextpred = 'F';
               }
               else if (pred == 'F' && s == 1){
-                   if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
+                  // if(apantisiYesNo == 1){fprintf(output11bit,"Miss\n");}
                    nextpred = 'T';
                    }
      return(nextpred);
