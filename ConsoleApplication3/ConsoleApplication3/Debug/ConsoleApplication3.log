@@ -1,21 +1,23 @@
-﻿Build started 9/11/2014 8:23:42 μμ.
+﻿Build started 30/11/2014 6:08:52 μμ.
      1>Project "C:\Users\user\Documents\GitHub\Arxitektoniki\ConsoleApplication3\ConsoleApplication3\ConsoleApplication3.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt Source.cpp
          Source.cpp
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(77): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(94): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(86): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(103): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(290) : see declaration of 'scanf'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(90): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(107): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(91): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(108): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(92): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(109): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(93): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(110): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
-     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(102): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(111): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
+     1>c:\users\user\documents\github\arxitektoniki\consoleapplication3\consoleapplication3\source.cpp(120): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : see declaration of 'fopen'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\user\Documents\GitHub\Arxitektoniki\ConsoleApplication3\Debug\ConsoleApplication3.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\user\Documents\GitHub\Arxitektoniki\ConsoleApplication3\Debug\ConsoleApplication3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\user\Documents\GitHub\Arxitektoniki\ConsoleApplication3\Debug\ConsoleApplication3.lib" /MACHINE:X86 Debug\Source.obj
@@ -24,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.71
+Time Elapsed 00:00:00.79

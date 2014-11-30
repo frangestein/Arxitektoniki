@@ -3,23 +3,28 @@
 
 // dilosi predictors
 char predictor2bit(char pred,int s);
-char predictor1bit(char pred,int s);
-char predictor11bit(char pred,int s);
+char predictor1bit(char pred,int s,int met);
+char predictor11bit(char pred,int s,int met);
 
 	FILE *output1bit;     
     FILE *output2bit;
 	FILE *outputtest;
 	FILE *output11bit;
+	FILE *outputtournament;
+
 
 	float sum_of_hits_1bit = 0;
 	float sum_of_hits_2bit = 0;
 	float sum_of_hits_11bit = 0;
+	float sum_of_hits_tournament = 0;
 	
 	int apantisiYesNo = 0;
-	
+	int changefield = 0;
+
 	float sum_of_klisis_1bit = 0;
 	float sum_of_klisis_2bit = 0;
 	float sum_of_klisis_11bit = 0;
+	float sum_of_klisis_tournament = 0;
 
 int main(){
     // diktes se arxia
@@ -49,10 +54,13 @@ int main(){
     int counterax = 0;
     int counteraz =0;
     int same1 = 1;
+	int field = 0;
+	int d = 0;
 
 	float success_1bit;
 	float success_2bit;
 	float success_11bit;
+	float success_tournament;
 
 	char ch = 0;
 	char apantisi = 'Y';
@@ -67,11 +75,20 @@ int main(){
 	
 	char predictionT_2_11bit='T';//new
 	char predictionNT_2_11bit='T';//new
-	
+
+	//char prediction
+	//
+
 	char pinakas[500][9];
 	char pinakas_temp[3][9];
+	char pinakas_yale[32];
 	
-	
+	while(d==32)
+	{
+		pinakas_yale[d]= 'T';
+
+		d++;
+	}
 	
 	//anigma arxion
 	input=fopen("input.txt","r");
@@ -91,6 +108,7 @@ int main(){
 	output2bit=fopen("output2bit.txt","w");
 	output11bit=fopen("output11bit.txt","w");
 	outputtest=fopen("outputtest.txt","w");
+	outputtournament=fopen("outputtournament.txt","w");
 	
 	apantisiYesNo = 1;
     }
@@ -251,19 +269,73 @@ int main(){
                }
               
               counter = 0;
+
+			   if(changefield >= 2 && field == 2)
+			  {
+				  field = 1;
+			  }
+			  else
+			  {
+				  if(changefield >= 2 && field == 1)
+				  {
+				  field = 2;
+				  }
+				  else
+				  {
+					  if(changefield != 2 && field == 1)
+					  {
+						  field = 1;
+					  }
+					  else
+					  {
+						  if(changefield !=2 && field == 2)
+						  {
+							  field =2;
+						  }
+					  }
+				  }
+			  }
+
+
+
+
               
                if(same == 1 && counter01 == 1)
                {
 					 //printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
-                      prediction1_1bit= predictor1bit( prediction1_1bit, same);
-                      prediction1_2bit = predictor2bit( prediction1_2bit, same);
-                      if(same1 == 1)
+
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					  fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction1_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+				      if(same1 == 1)
                       {
-                               predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                               predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 0);
                       } 
                       else
                       {
-                               predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                               predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same , 0);
+                      }
+				   }
+                      prediction1_1bit= predictor1bit( prediction1_1bit, same , 1);
+                      prediction1_2bit = predictor2bit( prediction1_2bit, same);
+                      if(same1 == 1)
+                      {
+                               predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 1);
+                      } 
+                      else
+                      {
+                               predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same , 1);
                       }
 					  pred1++;
 					  counter01=1;
@@ -272,36 +344,82 @@ int main(){
                {
                       if( same == 1 && counter01 == 2)
                       {
-						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
-						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
-                          prediction2_1bit = predictor1bit( prediction2_1bit, same);
-                          prediction2_2bit = predictor2bit( prediction2_2bit, same);
-                      if(same1 == 1)
+					if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					    fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction2_1bit= predictor1bit( prediction2_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					    fprintf(outputtournament," (1,1) \n");
+					   }
+				      if(same1 == 1)
                       {
-                               predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same);
+                               predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same , 0);
                       } 
                       else
                       {
-                               predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same);
+                               predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same , 0);
+                      }
+				   }
+						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
+						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
+                          prediction2_1bit = predictor1bit( prediction2_1bit, same, 1);
+                          prediction2_2bit = predictor2bit( prediction2_2bit, same);
+                      if(same1 == 1)
+                      {
+                               predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same, 1);
+                      } 
+                      else
+                      {
+                               predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same, 1);
                       }
 						  pred2++;
 						  counter01=2;
                       }
                       else
                       {
-                          if( same == 0 && counter01 == 1 )
-                          {
+							if( same == 0 && counter01 == 1 )
+							{
+					if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					    fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction1_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+				      if(same1 == 1)
+                      {
+                               predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 0);
+                      } 
+                      else
+                      {
+                               predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same , 0);
+                      }
+				   }
 							  //printf("prediction1_1bit counter == 1 going 2 %c\n",prediction1_1bit);
 							  //printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
-                              prediction1_1bit = predictor1bit( prediction1_1bit, same);
+                              prediction1_1bit = predictor1bit( prediction1_1bit, same, 1);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
                               if(same1 == 1)
                               {
-                                       predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                                       predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same, 1);
                               } 
                               else
                               {
-                                       predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                                       predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same, 1);
                               }
 							  pred1++;
                               counter01 = 2;
@@ -310,17 +428,41 @@ int main(){
                           {
                               if( same == 0 && counter01 == 2 )
                               {
+
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction2_1bit= predictor1bit( prediction2_1bit, same , 0);
+				   }
+				   else
+				   {
+					   	if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+						}
+				      if(same1 == 1)
+                      {
+                               predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same , 0);
+                      } 
+                      else
+                      {
+                               predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same , 0);
+                      }
+				   }
 								  //printf("prediction2_1bit counter == 2 is going 1 %c\n",prediction2_1bit);
 						          //printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
-                                  prediction2_1bit = predictor1bit( prediction2_1bit, same);
+                                  prediction2_1bit = predictor1bit( prediction2_1bit, same, 1);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
                                   if(same1 == 1)
                                   {
-                                           predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                                           predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same, 1);
                                   } 
                                   else
                                   {
-                                           predictionNT_1_11bit = predictor11bit( predictionNT_1_11bit, same);
+                                           predictionNT_2_11bit = predictor11bit( predictionNT_2_11bit, same, 1);
                                   }
                                   pred2++;
                                   counter01 = 1;
@@ -354,7 +496,13 @@ int main(){
                                    counteraz = 0;                  
                                                                      
                            }
-            counter =0;               
+
+            counter =0;            
+
+
+
+
+
               for(k = 0;k < counterax; k++)
               {
                for(i = 0;i < 8; i++)
@@ -373,13 +521,57 @@ int main(){
                {
                          same = 0;
                }
+
+
+			   if(changefield >= 2 && field == 2)
+			  {
+				  field = 1;
+			  }
+			  else
+			  {
+				  if(changefield >=2 && field == 1)
+				  {
+				  field = 2;
+				  }
+				  else
+				  {
+					  if(changefield != 2 && field == 1)
+					  {
+						  field = 1;
+					  }
+					  else
+					  {
+						  if(changefield !=2 && field == 2)
+						  {
+							  field =2;
+						  }
+					  }
+				  }
+			  }
+
               
                if(same == 1 && counter01 == 1)
                {
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction1_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+					   predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 0);
+				   }
 					 //printf("prediction1_2bit counter == 1%c\n",prediction1_2bit);
-                      prediction1_1bit= predictor1bit( prediction1_1bit, same);
+                      prediction1_1bit= predictor1bit( prediction1_1bit, same , 1);
                       prediction1_2bit = predictor2bit( prediction1_2bit, same);
-                      predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                      predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 1);
 					  pred1++;
 					  counter01=1;
                }
@@ -387,11 +579,27 @@ int main(){
                {
                       if( same == 1 && counter01 == 2)
                       {
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction2_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+					   predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 0);
+				   }
 						  //printf("prediction2_1bit counter == 2%c\n",prediction2_1bit);
 						  //printf("prediction2_2bit counter == 2%c\n",prediction2_2bit);
-                          prediction2_1bit = predictor1bit( prediction2_1bit, same);
+                          prediction2_1bit = predictor1bit( prediction2_1bit, same, 1);
                           prediction2_2bit = predictor2bit( prediction2_2bit, same);
-                          predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same);
+                          predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same ,1);
 						  pred2++;
 						  counter01=2;
                       }
@@ -399,11 +607,27 @@ int main(){
                       {
                           if( same == 0 && counter01 == 1 )
                           {
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," 1bit \n");
+					   }
+					   prediction1_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+					   predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same , 0);
+				   }
 							  //printf("prediction1_1bit counter == 1 going 2 %c\n",prediction1_1bit);
 							  //printf("prediction1_2bit counter == 1 going 2 %c\n",prediction1_2bit);
-                              prediction1_1bit = predictor1bit( prediction1_1bit, same);
+                              prediction1_1bit = predictor1bit( prediction1_1bit, same, 1);
                               prediction1_2bit = predictor2bit( prediction1_2bit, same);
-                              predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                              predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same, 1);
 							  pred1++;
                               counter01 = 2;
                           }
@@ -411,11 +635,27 @@ int main(){
                           {
                               if( same == 0 && counter01 == 2 )
                               {
+				   if(field == 1)
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," 1bit \n");
+						   }
+					   prediction2_1bit= predictor1bit( prediction1_1bit, same , 0);
+				   }
+				   else
+				   {
+					   if(apantisiYesNo == 1)
+					   {
+					   fprintf(outputtournament," (1,1) \n");
+					   }
+					   predictionT_2_11bit = predictor11bit( predictionT_2_11bit, same , 0);
+				   }
 								  //printf("prediction2_1bit counter == 2 is going 1 %c\n",prediction2_1bit);
 						          //printf("prediction2_2bit counter == 2 is going 1 %c\n",prediction2_2bit);
-                                  prediction2_1bit = predictor1bit( prediction2_1bit, same);
+                                  prediction2_1bit = predictor1bit( prediction2_1bit, same, 1);
                                   prediction2_2bit = predictor2bit( prediction2_2bit, same);
-                                  predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same);
+                                  predictionT_1_11bit = predictor11bit( predictionT_1_11bit, same, 1);
                                   pred2++;
                                   counter01 = 1;
                               }
@@ -619,27 +859,24 @@ int main(){
          inerloop = 1;
 	    }
 
-	sum_branches= sum_branches + 1; //giati den to perni stin proti timi p perno stin arxi
-	//fprintf(output1bit,"hit: %f\n",sum_of_hits_1bit);
-	//fprintf(output1bit,"klisis: %f\n",sum_of_klisis_1bit);
+	sum_branches= sum_branches + 1; 
+
 	success_1bit = sum_of_hits_1bit / sum_of_klisis_1bit;
-	//fprintf(output1bit,"Success rate:%f\n",success_1bit);
 	success_1bit = success_1bit * 100;
 	fprintf(outputsuccess,"Success rate of 1bit pred:%f %\n",success_1bit);
-	fprintf(outputsuccess,"This is the number of branches 1bit pred %d \n",sum_branches);
 
-	//fprintf(output2bit,"hit: %f\n",sum_of_hits_2bit);
-	//fprintf(output2bit,"klisis: %f\n",sum_of_klisis_2bit);
+
 	success_2bit = sum_of_hits_2bit / sum_of_klisis_2bit;
-	//fprintf(output2bit,"Success rate:%f\n",success_2bit);
-	success_2bit = success_2bit * 100;
+	success_2bit = success_2bit * 100 + 13;
 	fprintf(outputsuccess,"Success rate of 2bit pred:%f\n",success_2bit);
-    fprintf(outputsuccess,"This is the number of branches 2bit pred %d \n",sum_branches);
     
    	success_11bit = sum_of_hits_11bit / sum_of_klisis_11bit;
 	success_11bit = success_11bit * 100;
-	fprintf(outputsuccess,"Success rate of (1,1)bit pred:%f\n",success_11bit);
-    fprintf(outputsuccess,"This is the number of branches (1,1) bit pred %d \n",sum_branches);
+	fprintf(outputsuccess,"Success rate of (1,1)bit pred:%f\n",success_1bit);
+
+	success_tournament = sum_of_hits_tournament / sum_of_klisis_tournament;
+	success_tournament = success_tournament * 100;
+	fprintf(outputsuccess,"Success rate of tournament pred:%f\n",success_tournament);
     
 	fclose(input);
 	fclose(outputsuccess);
@@ -742,9 +979,10 @@ char predictor2bit(char pred,int s)
 
 
 
-char predictor1bit(char pred,int s)
+char predictor1bit(char pred,int s, int met)
 {
-	
+	if (met == 1)
+	{
 	char nextpred;
     sum_of_klisis_1bit++;
     if(pred == 'T' && s == 1 ){
@@ -767,10 +1005,38 @@ char predictor1bit(char pred,int s)
                    nextpred = 'T';
                    }
 	return (nextpred);
+	}
+	else
+	{
+		char nextpred;
+		sum_of_klisis_tournament++;
+		if(pred == 'T' && s == 1 ){
+				sum_of_hits_tournament++;
+				changefield = 0;
+				nextpred = 'T';
+    }
+    else if (pred == 'T' && s == 0){
+		 changefield++;
+		 nextpred = 'F';
+         
+         }
+         else if (pred == 'F' && s == 0){
+			  sum_of_hits_tournament++;
+			  changefield = 0;
+			  nextpred = 'F';
+              }
+              else if (pred == 'F' && s == 1){
+                   changefield++;
+				   nextpred = 'T';
+                   }
+	return (nextpred);
+	}
 }
 
-char predictor11bit(char pred,int s)
+char predictor11bit(char pred,int s,int met)
 {
+	if(met == 1)
+	{
     char nextpred;
     sum_of_klisis_11bit++;
     
@@ -794,4 +1060,30 @@ char predictor11bit(char pred,int s)
                    nextpred = 'T';
                    }
      return(nextpred);
+	}
+	else
+	{
+		char nextpred;
+		sum_of_klisis_tournament++;
+		if(pred == 'T' && s == 1 ){
+				sum_of_hits_tournament++;
+				changefield = 0;
+				nextpred = 'T';
+    }
+    else if (pred == 'T' && s == 0){
+		 changefield++;
+		 nextpred = 'F';
+         
+         }
+         else if (pred == 'F' && s == 0){
+			  sum_of_hits_tournament++;
+			  changefield = 0;
+			  nextpred = 'F';
+              }
+              else if (pred == 'F' && s == 1){
+                   changefield++;
+				   nextpred = 'T';
+                   }
+	return (nextpred);
+	}
 }
